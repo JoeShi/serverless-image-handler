@@ -63,6 +63,16 @@ class ImageHandler {
      * @param {object} edits - The edits to be made to the original image.
      */
     async applyEdits(image, edits) {
+        if (edits.proportion) {
+            const imageMetadata = await image.metadata();
+            const proportion = edits.proportion.value
+            edits.resize = {};
+            edits.resize.width = Math.round(Number(imageMetadata.width * proportion));
+            edits.resize.height = Math.round(Number(imageMetadata.height * proportion));
+            edits.resize.fit = 'inside';
+            delete edits.proportion;
+        }
+
         if (edits.resize === undefined) {
             edits.resize = {};
             edits.resize.fit = 'inside';

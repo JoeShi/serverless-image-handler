@@ -163,12 +163,10 @@ class ThumborMapping {
             }
             this.edits.resize.withoutEnlargement = true;
         } else if (editKey === ('proportion')) {
-            if (this.edits.resize === undefined) {
-                this.edits.resize = {};
-            }
             const prop = Number(value);
-            this.edits.resize.width = Number(this.edits.resize.width * prop);
-            this.edits.resize.height = Number(this.edits.resize.height * prop);
+            this.edits.proportion = {
+                value: prop
+            }
         } else if (editKey === ('quality')) {
             if (['jpg', 'jpeg'].includes(filetype)) {
                 this.edits.jpeg = { quality: Number(value) }
